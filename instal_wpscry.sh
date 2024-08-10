@@ -367,12 +367,14 @@ function cek_error(){
 	        echo "--------------------------------------------------------------------"
                 echo "[-] wpscry gagal diinstal."
 		echo "--------------------------------------------------------------------"
-                echo "${error}"
 	        sleep 3
 	        exit 1
 	else
                 echo "--------------------------------------------------------------------"
-                echo "[-] wpscry berhasil diinstal."
+                echo "[+] wpscry berhasil diinstal."
+		sleep3
+                echo "[+] Ketikkan 'wpscry' untuk menjalankannya."
+		sleep 3
 		echo "--------------------------------------------------------------------"
 	        sleep 3
 	        exit 0
