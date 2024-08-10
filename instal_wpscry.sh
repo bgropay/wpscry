@@ -10,10 +10,16 @@ path_app="/opt"
 
 error=()
 
+r="\e[0m"
+m="\e[1;31m"
+h="\e[1;32m"
+b="\e[1;34m"
+p="\e[1;37m"
+
 # Fungsi untuk memeriksa apakah script dijalankan sebagai root.
 function cek_root(){
         if [[ "$EUID" -ne 0 ]]; then
-                echo "[-] Script ini harus dijalankan sebagai root."
+                echo -e "${m}[-] ${p}Script ini harus dijalankan sebagai root.${r}"
                 exit 1
         fi
 }
@@ -31,7 +37,7 @@ function konfirmasi(){
                 elif [[ "${nanya}" == "tidak" ]]; then
                         exit 0
                 else
-                        echo "[-] Masukkan salah. Harap masukkan 'iya' atau 'tidak'."
+                        echo -e "${m}[-] ${p}Masukkan salah. Harap masukkan 'iya' atau 'tidak'.${r}"
                         continue
 
                 fi
@@ -40,13 +46,13 @@ function konfirmasi(){
 
 # Fungsi untuk mengecek apakah Anda memiliki koneksi internet atau tidak.
 function cek_koneksi_internet(){
-        echo "[*] Mengecek koneksi internet..."
+        echo -e "${b}[*] ${p}Mengecek koneksi internet...${r}"
         sleep 3
         if ping -c 1 8.8.8.8 >> /dev/null; then
-                echo "[+] Anda memiliki koneksi internet."
+                echo -e "${h}[+] ${p}Anda memiliki koneksi internet.${r}"
                 sleep 3
 	else
-                echo "[-] Anda tidak memiliki koneksi internet."
+                echo -e "${m}[-] ${p}Anda tidak memiliki koneksi internet.${r}"
 		((error+=1))
                 sleep 3
         fi
@@ -54,22 +60,22 @@ function cek_koneksi_internet(){
 
 # Fungsi untuk mengecek apakah Anda sudah menginstal git atau belum.
 function cek_git(){
-        echo "[*] Mengecek git..."
+        echo -e "${b}[*] ${p}Mengecek git...${r}"
         sleep 3
 	if command -v git >> /dev/null; then
-                echo "[+] Git sudah terinstal."
+                echo -e "${h}[+] ${p}Git sudah terinstal.${r}"
                 sleep 3
 	else
-		echo "[-] Git belum terinstal."
+		echo -e "${m}[-] ${p}Git belum terinstal.${r}"
                 sleep 3
-                echo "[*] Menginstal git..."
+                echo -e "${b}[*] ${p}Menginstal git...${r}"
 		sleep 3
                 apt-get install git -y >> /dev/null
 		if [[ $? -eq 0 ]]; then
-                        echo "[+] Git berhasil diinstal."
+                        echo -e "${h}[+] ${p}Git berhasil diinstal.${r}"
                         sleep 3
 		else
-                        echo "[-] Git gagal diinstal."
+                        echo -e "${m}[-] ${p}Git gagal diinstal.${r}"
 			((error+=1))
                         sleep 3
                 fi
