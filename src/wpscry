@@ -11,6 +11,13 @@
 # Maaf kalo kata-kata GW agak sedikit kasar :)
 #--------------
 
+r="\e[0m"
+m="\e[1;31m"
+h="\e[1;32m"
+c="\e[1;34m"
+b="\e[1;36m"
+p="\e[1;37m"
+
 # Fungsi untuk memeriksa apakah script dijalankan sebagai root.
 function cek_root(){
         if [[ "$EUID" -ne 0 ]]; then
