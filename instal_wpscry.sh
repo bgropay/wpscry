@@ -105,71 +105,69 @@ function instal_reaver(){
 
         # Menginstal seluruh dependensi yang diperlukan oleh reaver 
         for dependensi_reaver in "${daftar_dependensi_reaver[@]}"; do
-	        echo "[*] Menginstal dependensi '${dependensi_reaver}'..."
+	        echo -e "${b}[*] ${p}Menginstal dependensi '${dependensi_reaver}'...${r}"
                 sleep 3
 	        apt-get install "${dependensi_reaver}" -y >> /dev/null
 	        if [[ $? -eq 0 ]]; then
-	                echo "[+] Dependensi '${dependensi_reaver}' berhasil diinstal."
+	                echo -e "${h}[+] ${p}Dependensi '${dependensi_reaver}' berhasil diinstal.${r}"
                         sleep 3
 		else
-			echo "[-] Dependensi '${dependensi_reaver}' gagal diinstal."
+			echo -e "${m}[-] ${p}Dependensi '${dependensi_reaver}' gagal diinstal.${r}"
                         ((error+=1))
                         sleep 3
                 fi
         done
 
         # Instal reaver.
-        echo "[*] Mengkloning reaver dari github..."
+        echo -e "${b}[*] ${p}Mengkloning reaver dari github...${r}"
         sleep 3
         git clone "${url_reaver}" >> /dev/null
 
         if [[ $? -eq 0 ]]; then
-                echo "[+] Reaver berhasil dikloning dari github."
+                echo -e "${h}[+] ${p}Reaver berhasil dikloning dari github.${r}"
                 sleep 3
         else
-                echo "[-] Reaver gagal dikloning dari github."
+                echo -e "${m}[-] ${p}Reaver gagal dikloning dari github.${r}"
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         cd "${path_reaver}/src"
-        echo "[*] Menghasilkan file Makefile..."
+        echo -e "${b}[*] ${p}Menghasilkan file Makefile...${r}"
         sleep 3
         ./configure >> /dev/null
 
         if [[ $? -eq 0 ]]; then
-                echo "[+] File Makefile berhasil dihasilkan."
+                echo -e "${h}[+] ${p}File Makefile berhasil dihasilkan.${r}"
                 sleep 3
         else
-                echo "[-] File Makefile gagal dihasilkan. Proses instalasi dihentikan."
+                echo -e "${h}[-] ${p}File Makefile gagal dihasilkan. Proses instalasi dihentikan.${r}"
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
-        echo "[*] Mengkompilasi reaver..."
+        echo -e "${b}[*] ${p}Mengkompilasi reaver...${r}"
         sleep 3
         make >> /dev/null
 
         if [[ $? -eq 0 ]]; then
-                echo "[+] reaver berhasil dikompilasi."
+                echo -e "${h}[+] ${p}reaver berhasil dikompilasi.${r}"
                 sleep 3
         else
-                echo "[-] reaver gagal dikompilasi."
+                echo -e "${m}[-] ${p}reaver gagal dikompilasi.${r}"
 		((error+=1))
                 sleep 3
         fi
 
-        echo "[*] Menginstal reaver..."
+        echo -e "${b}[*] ${p}Menginstal reaver...${r}"
         sleep 3
         make install >> /dev/null
 
         if [[ $? -eq 0 ]]; then
-                echo "[+] reaver berhasil diinstal."
+                echo -e "${h}[+] ${p}reaver berhasil diinstal.${r}"
                 sleep 3
         else
-                echo "[-] reaver gagal diinstal."
+                echo -e "${m}[-] ${p}reaver gagal diinstal.${r}"
 		((error+=1))
                 sleep 3
         fi    
