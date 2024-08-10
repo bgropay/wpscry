@@ -47,8 +47,8 @@ function cek_koneksi_internet(){
                 sleep 3
 	else
                 echo "[-] Anda tidak memiliki koneksi internet."
+		((error+=1))
                 sleep 3
-		# exit 1
         fi
 }
 
@@ -153,7 +153,6 @@ function instal_reaver(){
                 echo "[-] reaver gagal dikompilasi."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         echo "[*] Menginstal reaver..."
@@ -167,7 +166,6 @@ function instal_reaver(){
                 echo "[-] reaver gagal diinstal."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi    
 	
 	cd ../../ # kembali ke direktori '/opt'
@@ -199,7 +197,6 @@ function instal_pixiewps(){
                 echo "[-] pixiewps gagal dikloning dari github."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         cd "${path_pixiewps}"
@@ -215,7 +212,6 @@ function instal_pixiewps(){
                 echo "[-] pixiewps gagal dikompilasi."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         echo "[*] Menginstal pixiewps..."
@@ -229,7 +225,6 @@ function instal_pixiewps(){
                 echo "[-] pixiewps gagal diinstal."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         cd ../ # kembali ke direktori '/opt'
@@ -248,7 +243,8 @@ function instal_aircrack(){
                 "pkg-config"
         	"libnl-3-dev"
                 "libnl-genl-3-dev"
-        	"libssl-dev ethtool"
+        	"libssl-dev"
+	        "ethtool"
                 "libssl-dev"
                 "shtool"
         	"rfkill"
@@ -294,7 +290,6 @@ function instal_aircrack(){
                 echo "[-] aircrack-ng gagal dikloning dari github."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         cd "${path_aircrack}"
@@ -310,7 +305,6 @@ function instal_aircrack(){
                 echo "[-] File configure gagal dihasilkan."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         echo "[*] Menghasilkan file Makefile..."
@@ -324,7 +318,6 @@ function instal_aircrack(){
                 echo "[-] File Makefile gagal dihasilkan."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         echo "[*] Mengkompilasi aircrack-ng..."
@@ -338,7 +331,6 @@ function instal_aircrack(){
                 echo "[-] aircrack-ng gagal dikompilasi."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         echo "[*] Menginstal aircrack-ng..."
@@ -352,7 +344,6 @@ function instal_aircrack(){
                 echo "[-] aircrack-ng gagal diinstal."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         echo "[*] Mengatur path library..."
@@ -366,7 +357,6 @@ function instal_aircrack(){
                 echo "[-] Path library gagal diatur."
 		((error+=1))
                 sleep 3
-                # exit 1
         fi
 
         cd ../ # kembali ke direktori '/opt'
