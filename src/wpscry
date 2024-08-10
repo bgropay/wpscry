@@ -44,16 +44,16 @@ function cek_alat(){
 
         # Memeriksa apakah ada elemen dalam list 'daftar_alat_belum_terinstal'.
         if [[ "${#daftar_alat_belum_terinstal[@]}" -ne 0 ]]; then
-                echo "[-] Skrip ini tidak dapat dijalankan karena ada alat yang belum terinstal."
+                echo -e "${m}[-] ${p}Script ini tidak dapat dijalankan karena ada alat yang belum terinstal.${r}"
                 echo ""
-                echo "Alat yang belum terinstal:"
+                echo -e "${p}Alat yang belum terinstal:${r}"
                 # Melakukan iterasi melalui elemen-elemen dalam daftar 'daftar_alat_belum_terinstal'.
                 for alat_belum_terinstal in "${daftar_alat_belum_terinstal[@]}"; do
                         # Menampilkan setiap alat yang belum terinstal.
-                        echo "- ${alat_belum_terinstal}"
+                        echo -e "${k}- ${p}${alat_belum_terinstal}${r}"
                 done
                 echo ""
-                echo "[*] Ketikkan 'instal_wpscry' untuk menginstal alat yang belum terinstal."
+                echo -e "${b}[*] ${p}Ketikkan 'bash instal_wpscry.sh' untuk menginstal alat yang belum terinstal.${r}"
                 exit 1
         fi
     
