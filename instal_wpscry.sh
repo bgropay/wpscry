@@ -8,6 +8,8 @@
 # Path untuk menyimpan semua tools yang diperlukan oleh wpscry.
 path_app="/opt"
 
+error=()
+
 # Fungsi untuk memeriksa apakah script dijalankan sebagai root.
 function cek_root(){
         if [[ "$EUID" -ne 0 ]]; then
@@ -67,9 +69,9 @@ function cek_git(){
                         echo "[+] Git berhasil diinstal."
                         sleep 3
 		else
-                        echo "[-] Git gagal diinstal. Proses instalasi dihentikan."
+                        echo "[-] Git gagal diinstal."
+			((error+=1))
                         sleep 3
-			exit 1
                 fi
 	fi
 }
@@ -105,6 +107,7 @@ function instal_reaver(){
                         sleep 3
 		else
 			echo "[-] Dependensi '${dependensi_reaver}' gagal diinstal."
+                        ((error+=1))
                         sleep 3
                 fi
         done
@@ -118,7 +121,8 @@ function instal_reaver(){
                 echo "[+] Reaver berhasil dikloning dari github."
                 sleep 3
         else
-                echo "[-] Reaver gagal dikloning dari github. Proses instalasi dihentikan."
+                echo "[-] Reaver gagal dikloning dari github."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -133,6 +137,7 @@ function instal_reaver(){
                 sleep 3
         else
                 echo "[-] File Makefile gagal dihasilkan. Proses instalasi dihentikan."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -145,7 +150,8 @@ function instal_reaver(){
                 echo "[+] reaver berhasil dikompilasi."
                 sleep 3
         else
-                echo "[-] reaver gagal dikompilasi. Proses instalasi dihentikan."
+                echo "[-] reaver gagal dikompilasi."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -158,7 +164,8 @@ function instal_reaver(){
                 echo "[+] reaver berhasil diinstal."
                 sleep 3
         else
-                echo "[-] reaver gagal diinstal. Proses instalasi dihentikan."
+                echo "[-] reaver gagal diinstal."
+		((error+=1))
                 sleep 3
                 exit 1
         fi    
@@ -189,7 +196,8 @@ function instal_pixiewps(){
                 echo "[+] pixiewps berhasil dikloning dari github."
                 sleep 3
         else
-                echo "[-] pixiewps gagal dikloning dari github. Proses instalasi dihentikan."
+                echo "[-] pixiewps gagal dikloning dari github."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -204,7 +212,8 @@ function instal_pixiewps(){
                 echo "[+] pixiewps berhasil dikompilasi."
                 sleep 3
         else
-                echo "[-] pixiewps gagal dikompilasi. Proses instalasi dihentikan."
+                echo "[-] pixiewps gagal dikompilasi."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -217,7 +226,8 @@ function instal_pixiewps(){
                 echo "[+] pixiewps berhasil diinstal."
                 sleep 3
         else
-                echo "[-] pixiewps gagal diinstal. Proses instalasi dihentikan."
+                echo "[-] pixiewps gagal diinstal."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -267,6 +277,7 @@ function instal_aircrack(){
                         sleep 3
                 else
                         echo "[-] Dependensi '${dependensi_aircrack}' gagal diinstal."
+			((error+=1))
                         sleep 3
                 fi
         done
@@ -280,7 +291,8 @@ function instal_aircrack(){
                 echo "[+] aircrack-ng berhasil dikloning dari github."
                 sleep 3
         else
-                echo "[-] aircrack-ng gagal dikloning dari github. Proses instalasi dihentikan."
+                echo "[-] aircrack-ng gagal dikloning dari github."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -295,7 +307,8 @@ function instal_aircrack(){
                 echo "[+] File configure berhasil dihasilkan."
                 sleep 3
         else
-                echo "[-] File configure gagal dihasilkan. Proses instalasi dihentikan."
+                echo "[-] File configure gagal dihasilkan."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -308,7 +321,8 @@ function instal_aircrack(){
                 echo "[+] File Makefile berhasil dihasilkan."
                 sleep 3
         else
-                echo "[-] File Makefile gagal dihasilkan. Proses instalasi dihentikan."
+                echo "[-] File Makefile gagal dihasilkan."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -321,7 +335,8 @@ function instal_aircrack(){
                 echo "[+] aircrack-ng berhasil dikompilasi."
                 sleep 3
         else
-                echo "[-] aircrack-ng gagal dikompilasi. Proses instalasi dihentikan."
+                echo "[-] aircrack-ng gagal dikompilasi."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -334,7 +349,8 @@ function instal_aircrack(){
                 echo "[+] aircrack-ng berhasil diinstal."
                 sleep 3
         else
-                echo "[-] aircrack-ng gagal diinstal. Proses instalasi dihentikan."
+                echo "[-] aircrack-ng gagal diinstal."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
@@ -347,12 +363,30 @@ function instal_aircrack(){
                 echo "[+] Path library berhasil diatur."
                 sleep 3
         else
-                echo "[-] Path library gagal diatur. Proses instalasi dihentikan."
+                echo "[-] Path library gagal diatur."
+		((error+=1))
                 sleep 3
                 exit 1
         fi
 
         cd ../ # kembali ke direktori '/opt'
+}
+
+function cek_error(){
+        if [[ "${#error[@]}" -ne 0 ]]; then
+	        echo "--------------------------------------------------------------------"
+                echo "[-] wpscry gagal diinstal."
+		echo "--------------------------------------------------------------------"
+	        sleep 3
+	        exit 1
+	else
+                echo "--------------------------------------------------------------------"
+                echo "[-] wpscry berhasil diinstal."
+		echo "--------------------------------------------------------------------"
+	        sleep 3
+	        exit 0
+	fi
+  
 }
 
 # Fungsi untuk menginstal wpscray.
@@ -365,6 +399,7 @@ function instal_wpscry(){
         instal_reaver
 	instal_pixiewps
         instal_aircrack
+	cek_error
 }
 
 # Memanggil fungsi instal_wpscry.
