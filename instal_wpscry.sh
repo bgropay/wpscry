@@ -46,9 +46,9 @@ function cek_koneksi_internet(){
                 echo "[+] Anda memiliki koneksi internet."
                 sleep 3
 	else
-                echo "[-] Anda tidak memiliki koneksi internet. Proses instalasi dihentikan."
+                echo "[-] Anda tidak memiliki koneksi internet."
                 sleep 3
-		exit 1
+		# exit 1
         fi
 }
 
@@ -377,6 +377,7 @@ function cek_error(){
 	        echo "--------------------------------------------------------------------"
                 echo "[-] wpscry gagal diinstal."
 		echo "--------------------------------------------------------------------"
+                echo "${error}"
 	        sleep 3
 	        exit 1
 	else
